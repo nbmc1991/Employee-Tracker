@@ -1,0 +1,21 @@
+{
+  "name": "emplyee-tracker",
+  "version": "1.0.0",
+  "description": "solution for managing a company's employees using node, inquirer, and MySQL.",
+  "main": "employeeTracker.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nbmc1991/Emplyee-Tracker.git"
+  },
+  "dependencies": {
+    "inquirer": "^6.2.1",
+    "mysql": "^2.16.0",
+    "console.table": "^0.10.0"
+  },
+  "author": "Norma Cruz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nbmc1991/Emplyee-Tracker/issues"
+  },
+  "homepage": "https://github.com/nbmc1991/Emplyee-Tracker#readme"
+}
