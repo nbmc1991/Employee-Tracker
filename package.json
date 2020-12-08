@@ -1,5 +1,5 @@
 {
-  "name": "emplyee-tracker",
+  "name": "employee-tracker",
   "version": "1.0.0",
   "description": "solution for managing a company's employees using node, inquirer, and MySQL.",
   "main": "employeeTracker.js",

@@ -1,6 +1,5 @@
 const inquirer = require("inquirer");
 var mysql = require("mysql");
-// var inq = require("inquirer");
 // var console = require("console.table");
 
 
@@ -34,7 +33,7 @@ function start() {
         })
         .then(answer => {
             if (answer.liketodo === "View All Employees") {
-                viewEmployee();
+                viewAllEmployees();
             }
             else if (answer.liketodo === "View Roles") {
                 viewRoles();
@@ -56,5 +55,16 @@ function start() {
             }
         });
 }
+
+function viewAllEmployees() {
+    connection.query("SELECT * FROM employee", (err, res) => {
+        if (err) throw err;
+        let employeeArr = [];
+        let employee = {};
+        for (var i = 0; i < res.length; i++) {
+            employeeArr.push(`${res[i].first_name}${res[i].last_name}`);
+        }
+    });
+};
 
 
