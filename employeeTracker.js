@@ -56,6 +56,9 @@ function start() {
             else if (answer.liketodo === "Update Empoyee Roles") {
                 updateRoles();
             }
+            else if (answer.liketodo === "None") {
+                connection.end();
+            }
 
         });
 }
@@ -83,6 +86,49 @@ function addDepartment() {
             )
 
         });
+}
+//ROLES
+//function to prompt the user information about adding roles
+function addRoles() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "roleTitle",
+                message: "What is the title of the role you'd like to add?"
+            },
+            {
+                type: "input",
+                name: "deptId",
+                message: "What is the department ID for this role?"
+            },
+            {
+                type: "input",
+                name: "roleSalary",
+                message: "What is the salary for the role you are adding?",
+                validate: function (salary) {
+                    if (isNaN(salary) === true) {
+                        return ("Numeric values only");
+                    }
+                }
+            }
+        ]).then(function (newRole) {
+            connection.query(
+                "INSERT INTO role SET?",
+                {
+                    title: newRole.title,
+                    salary: newRole.salary,
+                    department_id: newRole.deptId
+                },
+                function (err) {
+                    if (err) throw err;
+                    console.log("Your role has been added!");
+                    //re prompt with start function
+                    start();
+                }
+            )
+        });
+
 }
 
 
