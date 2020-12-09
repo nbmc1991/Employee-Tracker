@@ -107,17 +107,18 @@ function addRoles() {
                 name: "roleSalary",
                 message: "What is the salary for the role you are adding?",
                 validate: function (salary) {
-                    if (isNaN(salary) === true) {
-                        return ("Numeric values only");
+                    if (isNaN(salary) === false) {
+                        return true;
                     }
+                    return ("Numeric values only");
                 }
             }
         ]).then(function (newRole) {
             connection.query(
                 "INSERT INTO role SET?",
                 {
-                    title: newRole.title,
-                    salary: newRole.salary,
+                    title: newRole.roleTitle,
+                    salary: newRole.roleSalary,
                     department_id: newRole.deptId
                 },
                 function (err) {
