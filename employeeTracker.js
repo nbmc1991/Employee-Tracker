@@ -31,7 +31,7 @@ function start() {
             name: "liketodo",
             type: "list",
             message: "What would you like to do?",
-            choices: ["Add Department", "Add Roles", "View All Employees", "View Roles", "View Departments", "Add Employees", "Update Employee Roles", "None"]
+            choices: ["Add Department", "Add Roles", "Add Employees", "View All Employees", "View Roles", "View Departments", "Update Employee Roles", "None"]
         })
         .then(answer => {
             //based on their answers call the functions that would run for each action if else
@@ -131,8 +131,6 @@ function addRoles() {
         });
 
 }
-
-
 function viewRoles() {
     connection.query("SELECT * FROM role", (err, res) => {
         if (err) throw err;
@@ -143,9 +141,59 @@ function viewRoles() {
         console.table("Roles", [roleArr]);
         start();
     })
+}
+//EMPLOYEES
+//function to handle adding employees
+function addEmployee() {
+    inquirer
+        .prompt([
+            {
+                type: "input",
+                name: "empName",
+                message: "What is the first name of the employee you are adding?"
 
+            },
+            {
+                type: "input",
+                name: "empLastName",
+                message: "What is the employee's last name?"
+
+            },
+            {
+                type: "input",
+                name: "empRoleId",
+                message: "What is the employee's role id?"
+
+            },
+            {
+                type: "input",
+                name: "empManagerId",
+                message: "What is the employee's manager id?"
+
+            }
+        ]).then(function (newEmp) {
+            connection.query(
+                "INSERT INTO employee SET ?",
+                {
+                    first_name: newEmp.empName,
+                    last_name: newEmp.empLastName,
+                    role_id: newEmp.empRoleId,
+                    manager_id: newEmp.empManagerId
+                },
+                function (err) {
+                    if (err) throw err;
+                    console.log("Employee has been added!");
+                    //re prompt
+                    start();
+                }
+            );
+        });
 
 }
+
+
+
+
 
 
 
