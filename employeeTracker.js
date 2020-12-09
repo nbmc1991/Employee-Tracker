@@ -29,10 +29,19 @@ function start() {
             name: "liketodo",
             type: "list",
             message: "What would you like to do?",
-            choices: ["View All Employees", "View Roles", "View Departments", "Add Departments", "Add Roles", "Add Employees", "Update Employee Roles", "None"]
+            choices: ["Add Department", "Add Roles", "View All Employees", "View Roles", "View Departments", "Add Employees", "Update Employee Roles", "None"]
         })
         .then(answer => {
-            if (answer.liketodo === "View All Employees") {
+            if (answer.liketodo === "Add Departments") {
+                addDepartment();
+            }
+            else if (answer.liketodo === "Add Roles") {
+                addRoles();
+            }
+            else if (answer.liketodo === "Add Employees") {
+                addEmployee();
+            }
+            else if (answer.liketodo === "View All Employees") {
                 viewAllEmployees();
             }
             else if (answer.liketodo === "View Roles") {
@@ -41,20 +50,27 @@ function start() {
             else if (answer.liketodo === "View Departments") {
                 viewDepartments();
             }
-            else if (answer.liketodo === "Add Departments") {
-                addDepartments();
-            }
-            else if (answer.liketodo === "Add Roles") {
-                addRoles();
-            }
-            else if (answer.liketodo === "Add Employees") {
-                addEmployee();
-            }
             else if (answer.liketodo === "Update Empoyee Roles") {
                 updateRoles();
             }
         });
 }
+
+function viewRoles() {
+    connection.query("SELECT * FROM role", (err, res) => {
+        if (err) throw err;
+        var roleArr = [];
+        for (var i = 0; i < res.length; i++) {
+            roleArr.push(res[i].title);
+        }
+        console.table("Roles", [roleArr]);
+        start();
+    })
+
+
+}
+
+
 
 function viewAllEmployees() {
     connection.query("SELECT * FROM employee", (err, res) => {
