@@ -1,12 +1,12 @@
 const inquirer = require("inquirer");
 var mysql = require("mysql");
-// var console = require("console.table");
+// var ct = require("console.table");
 
 
-//setting up connection objects neededforconnection
+//setting up connection information for the sqp database
 var connection = mysql.createConnection({
     host: "localhost",
-
+    //port
     port: 3306,
 
     //username
@@ -14,15 +14,17 @@ var connection = mysql.createConnection({
 
     //passworkd
     password: "Lucas2018.",
-
     database: "employee_db"
 });
+//connect to mysql server and sql database
 connection.connect(err => {
     if (err) throw err;
     console.log("connected as id" + connection.threadId);
+    //call function to start
     start();
 });
 
+//start function will prompt user for what action to take
 function start() {
     inquirer
         .prompt({
@@ -32,7 +34,8 @@ function start() {
             choices: ["Add Department", "Add Roles", "View All Employees", "View Roles", "View Departments", "Add Employees", "Update Employee Roles", "None"]
         })
         .then(answer => {
-            if (answer.liketodo === "Add Departments") {
+            //based on their answers call the functions that would run for each action if else
+            if (answer.liketodo === "Add Department") {
                 addDepartment();
             }
             else if (answer.liketodo === "Add Roles") {
@@ -53,8 +56,35 @@ function start() {
             else if (answer.liketodo === "Update Empoyee Roles") {
                 updateRoles();
             }
+
         });
 }
+//function to handle adding departments
+function addDepartment() {
+    //prompt for info about department
+    inquirer
+        .prompt({
+            name: "deptName",
+            type: "input",
+            message: "What is the name of the department you would like add?"
+        }).then(function (res) {
+            var query = connection.query(
+                "INSERT INTO department SET ?",
+                {
+                    name: res.deptName,
+                },
+                function (error) {
+                    if (error) throw error;
+                    console.log("Your department was successfully added!");
+
+                    //re prompt user if they would like to do something else
+                    start();
+                }
+            )
+
+        });
+}
+
 
 function viewRoles() {
     connection.query("SELECT * FROM role", (err, res) => {
