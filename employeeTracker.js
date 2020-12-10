@@ -1,28 +1,5 @@
 const inquirer = require("inquirer");
-var mysql = require("mysql");
-// var ct = require("console.table");
-
-
-//setting up connection information for the sqp database
-var connection = mysql.createConnection({
-    host: "localhost",
-    //port
-    port: 3306,
-
-    //username
-    user: "root",
-
-    //passworkd
-    password: "Lucas2018.",
-    database: "employee_db"
-});
-//connect to mysql server and sql database
-connection.connect(err => {
-    if (err) throw err;
-    console.log("connected as id" + connection.threadId);
-    //call function to start
-    start();
-});
+const connection = require("./db/db").connection
 
 //start function will prompt user for what action to take
 function start() {
@@ -45,15 +22,18 @@ function start() {
                 addEmployee();
             }
             else if (answer.liketodo === "View All Employees") {
-                viewAllEmployees();
+                viewAll("employee");
+                start()
             }
             else if (answer.liketodo === "View Roles") {
-                viewRoles();
+                viewAll("role");
+                start()
             }
             else if (answer.liketodo === "View Departments") {
-                viewDepartments();
+                viewAll("department");
+                start()
             }
-            else if (answer.liketodo === "Update Empoyee Roles") {
+            else if (answer.liketodo === "Update Employee Roles") {
                 updateRoles();
             }
             else if (answer.liketodo === "None") {
@@ -84,10 +64,9 @@ function addDepartment() {
                     start();
                 }
             )
-
         });
 }
-//ROLES
+//add ROLES
 //function to prompt the user information about adding roles
 function addRoles() {
     inquirer
@@ -131,16 +110,14 @@ function addRoles() {
         });
 
 }
-function viewRoles() {
-    connection.query("SELECT * FROM role", (err, res) => {
+
+//view roles
+function viewAll(table) {
+    connection.query(`SELECT * FROM ${table}`, function (err, res) {
         if (err) throw err;
-        var roleArr = [];
-        for (var i = 0; i < res.length; i++) {
-            roleArr.push(res[i].title);
-        }
-        console.table("Roles", [roleArr]);
-        start();
-    })
+        console.table(res);
+
+    });
 }
 //EMPLOYEES
 //function to handle adding employees
@@ -191,12 +168,33 @@ function addEmployee() {
 
 }
 
+function updateRoles() {
+    viewAll("employee", (returned_results) => {
+        // console.log(name)
+        // console.log(`There are ${returned_results.length} employees`)
+        inquirer.prompt([{
+            type: "list",
+            name: "employee_id",
+            message: "What employee is changing roles?",
+            choices: returned_results.map(emp => emp.first_name)
+        }, {
+            type: "input",
+            name: "role_id",
+            message: "What is the id for their new role?"
+        }]).then(res => {
+            update("employee", "role_id", res.role_id, res.employee_id)
+        })
 
+    })
+}
 
-
-
-
-
+function update(table_name, column, column_value, item_id) {
+    connection.query(`UPDATE ${table_name} SET ${column}=${column_value} WHERE id=${item_id};`, (err, res) => {
+        if (err) throw err;
+        console.table(res)
+        start()
+    });
+}
 function viewAllEmployees() {
     connection.query("SELECT * FROM employee", (err, res) => {
         if (err) throw err;
@@ -209,3 +207,5 @@ function viewAllEmployees() {
 };
 
 
+
+start()
