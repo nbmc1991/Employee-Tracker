@@ -10,22 +10,21 @@ USE employee_db;
  VALUES("Engineer")
  
  INSERT INTO role(title, salary, department_id)
- VALUES ("Financial Advisor", 589000, 32);
+ VALUES ("Financial Advisor", 589000, 2);
  INSERT INTO role(title,salary,department_id)
- VALUES ("Sales Advisor", 299000,45);
+ VALUES ("Sales Advisor", 299000,4);
  INSERT INTO role(title,salary,department_id)
- VALUES("Trainer Personal", 555555, 55);
+ VALUES("Trainer Personal", 555555, 1);
  INSERT INTO role(title,salary,department_id)
- VALUES("Civil Engineer", 399999, 65);
+ VALUES("Civil Engineer", 399999, 3);
 
- INSERT INTO employee (first_name, last_name,role_id, manager_id)
- VALUES ("Indira", "Cruz", 1001, 1);
+INSERT INTO employee (first_name, last_name,role_id, manager_id)
+ VALUES ("Indira", "Cruz", 1, 1);
  INSERT INTO employee( first_name,last_name,role_id,manager_id)
- VALUES ("Brad", "Pit", 2477, 2);
+ VALUES ("Brad", "Pit", 2, 2);
  INSERT INTO employee(first_name,last_name,role_id,manager_id)
- VALUES("Jason","Statham", 3333, 3);
+ VALUES("Jason","Statham", 3, 3);
  INSERT INTO employee(first_name,last_name,role_id,manager_id)
- VALUES("Brenda", "Williams", 2404,4);
-
+ VALUES("Brenda", "Williams", 2,4);
 
 

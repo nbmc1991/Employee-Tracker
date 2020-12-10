@@ -19,6 +19,7 @@ CREATE TABLE role(
     salary DECIMAL NOT NULL,
     department_id INT NOT NULL,
     PRIMARY KEY (id)
+    FOREIGN KEY 
 );
 
 --Create "employee";
