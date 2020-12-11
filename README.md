@@ -1,9 +1,14 @@
 # Employee Tracker
 
+## Description
+
+
+A solution for managing a company's employees using node, inquirer, and MySQL.
+
 
   ![License](https://img.shields.io/badge/License-MIT license%202.0-blue.svg)
 
-  [![Alt text for your video]()]()
+  [![Alt text for your video]()](https://www.youtube.com/watch?v=GheWtQ65i6E)
 
   ![]()
 
@@ -32,7 +37,6 @@
 
 
 
-## Description
 
 
 
