@@ -30,7 +30,8 @@ function start() {
                 start()
             }
             else if (answer.liketodo === "View Departments") {
-                viewAll("department");
+                // viewAll("department");
+                viewDepartments()
                 start()
             }
             else if (answer.liketodo === "Update an Employee Role") {
@@ -43,6 +44,16 @@ function start() {
 
         });
 }
+
+
+function viewDepartments() {
+    console.log("Selecting all Departments...\n");
+    connection.query("SELECT * FROM department", function (err, res) {
+        if (err) throw err;
+        console.table(res);
+    });
+}
+
 //function to handle adding departments
 function addDepartment() {
     //prompt for info about department
@@ -88,7 +99,7 @@ function addRoles() {
                         if (isNaN(salary) === false) {
                             return true;
                         }
-                        return false;
+                        return ("Please enter numeric values only");
                     }
                 },
                 {

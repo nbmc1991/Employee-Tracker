@@ -8,9 +8,10 @@
     "url": "git+https://github.com/nbmc1991/Emplyee-Tracker.git"
   },
   "dependencies": {
+    "console.table": "^0.10.0",
+    "dotenv": "^8.2.0",
     "inquirer": "^6.2.1",
-    "mysql": "^2.16.0",
-    "console.table": "^0.10.0"
+    "mysql": "^2.16.0"
   },
   "author": "Norma Cruz",
   "license": "ISC",

@@ -1,4 +1,5 @@
 var mysql = require("mysql");
+require("dotenv").config();
 // var ct = require("console.table");
 
 
@@ -20,6 +21,7 @@ connection.connect(err => {
     if (err) throw err;
     console.log("connected as id" + connection.threadId);
     //call function to start
+
 });
 
 
